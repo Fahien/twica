@@ -1,0 +1,46 @@
+#!/usr/bin/python
+import sys, getopt, tweepy
+
+def process_friend(friend):
+	print friend.screen_name
+
+def process_stat(stat):
+	print stat.user.screen_name+": "+stat.text
+	print ""
+
+def main(argv):
+	ckey = ""
+	csecret = ""
+	atoken = ""
+	asecret = ""
+	
+	auth = tweepy.OAuthHandler(ckey, csecret)
+	auth.set_access_token(atoken,asecret)
+	api = tweepy.API(auth)
+	
+	try:
+		opts, args = getopt.getopt(argv,"lst:", ["twi="])
+	except getopt.GetoptError:
+		print 'twica -t "Tweet di esempio"'
+		print '-l per mostrare gli amici che ti seguono'
+		print '-s per mostrare i primi 20 tweets della home'
+		sys.exit(2)
+	for opt, arg in opts:
+		if opt in ("-t", "--twi"):
+			stringa = str(arg)
+			print "Twitto: "+stringa
+			api.update_status(stringa)
+		elif opt == '-s':
+			for stat in tweepy.Cursor(api.home_timeline).items(10):
+				process_stat(stat)
+		elif opt == '-l':
+			for friend in tweepy.Cursor(api.friends).items(20):
+				process_friend(friend)
+		else:
+			print 'twitta -t "Tweet di esempio"'
+			print '-l per mostrare gli amici che ti seguono'
+			print '-s per mostrare i primi 20 tweets della home'
+			sys.exit(2)
+
+if __name__ == "__main__":
+	main(sys.argv[1:])

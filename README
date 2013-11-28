@@ -1,0 +1,7 @@
+Per un corretto funzionamento vanno impostati:
+- Consumer key
+- Consumer secret
+- Access token
+- Access token secret
+
+Nota: L'Access level deve avere permesso di scrittura
