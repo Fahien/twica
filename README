@@ -1,7 +1,7 @@
-Per un corretto funzionamento vanno impostati:
+For a proper operation, set:
 - Consumer key
 - Consumer secret
 - Access token
 - Access token secret
 
-Nota: L'Access level deve avere permesso di scrittura
+Note: The Access Level must have permission to write
